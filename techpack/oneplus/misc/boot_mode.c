@@ -10,7 +10,14 @@ int hw_version = 0;
 int rf_version = 0;
 int prj_version = 0;
 
-extern char *enum_ftm_mode[];
+char *enum_ftm_mode[] = {"normal",
+						 "fastboot",
+						 "recovery",
+						 "aging",
+						 "ftm_at",
+						 "ftm_rf",
+						 "charger"
+};
 
 enum oem_boot_mode get_boot_mode(void)
 {
