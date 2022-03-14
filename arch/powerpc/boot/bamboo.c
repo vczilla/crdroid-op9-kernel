@@ -9,7 +9,7 @@
  * Clocking code based on code by:
  * Stefan Roese <sr@denx.de>
  */
-#include <stdarg.h>
+#include <linux/stdarg.h>
 #include <stddef.h>
 #include "types.h"
 #include "elf.h"

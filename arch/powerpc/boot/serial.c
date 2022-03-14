@@ -11,7 +11,7 @@
  * is licensed "as is" without any warranty of any kind, whether express
  * or implied.
  */
-#include <stdarg.h>
+#include <linux/stdarg.h>
 #include <stddef.h>
 #include "types.h"
 #include "string.h"

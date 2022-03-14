@@ -15,7 +15,7 @@
  *    Copyright 2010 Ben. Herrenschmidt, IBM Corporation.
  *    Copyright © 2011 David Kleikamp IBM Corporation
  */
-#include <stdarg.h>
+#include <linux/stdarg.h>
 #include <stddef.h>
 #include "types.h"
 #include "elf.h"

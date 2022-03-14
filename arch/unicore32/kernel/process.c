@@ -6,7 +6,7 @@
  *
  * Copyright (C) 2001-2010 GUAN Xue-tao
  */
-#include <stdarg.h>
+#include <linux/stdarg.h>
 
 #include <linux/module.h>
 #include <linux/sched.h>

@@ -238,7 +238,7 @@ void hal_rx_proc_phyrx_other_receive_info_tlv_6490(void *rx_tlv_hdr,
  */
 static void hal_rx_dump_msdu_start_tlv_6490(void *msdustart, uint8_t dbg_level)
 {
-	struct rx_msdu_start *msdu_start = (struct rx_msdu_start *)msdustart;
+	__maybe_unused struct rx_msdu_start *msdu_start = (struct rx_msdu_start *)msdustart;
 
 	__QDF_TRACE_RL(dbg_level, QDF_MODULE_ID_DP,
 		       "rx_msdu_start tlv (1/2) - "
@@ -316,7 +316,7 @@ static void hal_rx_dump_msdu_start_tlv_6490(void *msdustart, uint8_t dbg_level)
 static void hal_rx_dump_msdu_end_tlv_6490(void *msduend,
 					  uint8_t dbg_level)
 {
-	struct rx_msdu_end *msdu_end = (struct rx_msdu_end *)msduend;
+	__maybe_unused struct rx_msdu_end *msdu_end = (struct rx_msdu_end *)msduend;
 
 	__QDF_TRACE_RL(dbg_level, QDF_MODULE_ID_DP,
 		       "rx_msdu_end tlv (1/3) - "
@@ -2073,7 +2073,11 @@ struct hal_hw_srng_config hw_srng_table_6490[] = {
 	},
 	{ /* WBM2SW_RELEASE */
 		.start_ring_id = HAL_SRNG_WBM2SW0_RELEASE,
+#ifdef CONFIG_PLD_PCIE_FW_SIM
+		.max_rings = 5,
+#else
 		.max_rings = 4,
+#endif
 		.entry_size = sizeof(struct wbm_release_ring) >> 2,
 		.lmac_ring = FALSE,
 		.ring_dir = HAL_SRNG_DST_RING,

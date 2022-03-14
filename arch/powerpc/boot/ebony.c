@@ -11,7 +11,7 @@
  *   Eugene Surovegin <eugene.surovegin@zultys.com> or <ebs@ebshome.net>
  *   Copyright (c) 2003, 2004 Zultys Technologies
  */
-#include <stdarg.h>
+#include <linux/stdarg.h>
 #include <stddef.h>
 #include "types.h"
 #include "elf.h"

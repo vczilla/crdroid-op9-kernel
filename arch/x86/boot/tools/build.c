@@ -28,7 +28,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
-#include <stdarg.h>
+#include <linux/stdarg.h>
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <unistd.h>

@@ -14,7 +14,7 @@
  */
 
 #define __KERNEL_SYSCALLS__
-#include <stdarg.h>
+#include <linux/stdarg.h>
 
 #include <linux/errno.h>
 #include <linux/sched.h>

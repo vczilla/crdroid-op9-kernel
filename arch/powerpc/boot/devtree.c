@@ -7,7 +7,7 @@
  * Authors: David Gibson <david@gibson.dropbear.id.au>
  *	    Scott Wood <scottwood@freescale.com>
  */
-#include <stdarg.h>
+#include <linux/stdarg.h>
 #include <stddef.h>
 #include "types.h"
 #include "string.h"

@@ -7,7 +7,7 @@
  * Copyright (C) 2012 ARM Ltd.
  */
 
-#include <stdarg.h>
+#include <linux/stdarg.h>
 
 #include <linux/compat.h>
 #include <linux/efi.h>
