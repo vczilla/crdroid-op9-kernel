@@ -5,7 +5,7 @@
 
 #include <stdio.h>
 #include <unistd.h>
-#include <stdarg.h>
+#include <linux/stdarg.h>
 #include <errno.h>
 #include <stddef.h>
 #include <string.h>

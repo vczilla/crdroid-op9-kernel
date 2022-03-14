@@ -26,12 +26,21 @@
 #include "wlan_ipa_ucfg_api.h"
 #include "qdf_platform.h"
 
-static bool g_ipa_is_ready;
+static qdf_mutex_t g_init_deinit_lock;
 
 void ipa_disable_register_cb(void)
 {
 	ipa_debug("Don't register ready cb with IPA driver");
-	g_ipa_is_ready = false;
+}
+
+void ipa_init_deinit_lock(void)
+{
+	qdf_mutex_acquire(&g_init_deinit_lock);
+}
+
+void ipa_init_deinit_unlock(void)
+{
+	qdf_mutex_release(&g_init_deinit_lock);
 }
 
 /**
@@ -67,7 +76,6 @@ ipa_pdev_obj_destroy_notification(struct wlan_objmgr_pdev *pdev,
 		ipa_err("Failed to detatch ipa pdev object");
 
 	ipa_obj_cleanup(ipa_obj);
-	qdf_mutex_destroy(&ipa_obj->init_deinit_lock);
 	qdf_mem_free(ipa_obj);
 	ipa_disable_register_cb();
 
@@ -99,7 +107,6 @@ ipa_pdev_obj_create_notification(struct wlan_objmgr_pdev *pdev,
 	if (!ipa_obj)
 		return QDF_STATUS_E_NOMEM;
 
-	qdf_mutex_create(&ipa_obj->init_deinit_lock);
 	status = wlan_objmgr_pdev_component_obj_attach(pdev,
 						       WLAN_UMAC_COMP_IPA,
 						       (void *)ipa_obj,
@@ -141,7 +148,8 @@ static void ipa_register_ready_cb(void *user_data)
 		return;
 	}
 
-	qdf_mutex_acquire(&ipa_obj->init_deinit_lock);
+	ipa_init_deinit_lock();
+
 	/*
 	 * Meanwhile acquiring lock, driver stop modules can happen in parallel,
 	 * validate driver state once again to proceed with IPA init.
@@ -158,7 +166,6 @@ static void ipa_register_ready_cb(void *user_data)
 		goto out;
 	}
 
-	g_ipa_is_ready = true;
 	ipa_info("IPA ready callback invoked: ipa_register_ready_cb");
 	status = ipa_obj_setup(ipa_obj);
 	if (QDF_IS_STATUS_ERROR(status)) {
@@ -175,7 +182,7 @@ static void ipa_register_ready_cb(void *user_data)
 	}
 
 out:
-	qdf_mutex_release(&ipa_obj->init_deinit_lock);
+	ipa_init_deinit_unlock();
 }
 
 QDF_STATUS ipa_register_is_ipa_ready(struct wlan_objmgr_pdev *pdev)
@@ -234,6 +241,8 @@ QDF_STATUS ipa_init(void)
 		goto fail_delete_pdev;
 	}
 
+	qdf_mutex_create(&g_init_deinit_lock);
+
 	return status;
 
 fail_delete_pdev:
@@ -258,6 +267,8 @@ QDF_STATUS ipa_deinit(void)
 		ipa_info("ipa is disabled");
 		return status;
 	}
+
+	qdf_mutex_destroy(&g_init_deinit_lock);
 
 	status = wlan_objmgr_unregister_pdev_destroy_handler(WLAN_UMAC_COMP_IPA,
 				ipa_pdev_obj_destroy_notification, NULL);

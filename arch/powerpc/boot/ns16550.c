@@ -8,7 +8,7 @@
  *
  * Modified by: Mark A. Greer <mgreer@mvista.com>
  */
-#include <stdarg.h>
+#include <linux/stdarg.h>
 #include <stddef.h>
 #include "types.h"
 #include "string.h"

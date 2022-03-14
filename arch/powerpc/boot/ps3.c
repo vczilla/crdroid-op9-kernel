@@ -6,7 +6,7 @@
  *  Copyright 2007 Sony Corp.
  */
 
-#include <stdarg.h>
+#include <linux/stdarg.h>
 #include <stddef.h>
 #include "types.h"
 #include "elf.h"

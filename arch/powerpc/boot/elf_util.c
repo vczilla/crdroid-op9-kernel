@@ -4,7 +4,7 @@
  *
  * Updates for PPC64 by Todd Inglett, Dave Engebretsen & Peter Bergner.
  */
-#include <stdarg.h>
+#include <linux/stdarg.h>
 #include <stddef.h>
 #include "elf.h"
 #include "page.h"

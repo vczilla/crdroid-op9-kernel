@@ -1269,6 +1269,7 @@ static int core_ctl_isolation_dead_cpu(unsigned int cpu)
 	return isolation_cpuhp_state(cpu, false);
 }
 
+#ifdef CONFIG_CONTROL_CENTER
 int core_ctl_op_boost(bool boost, int level)
 {
         unsigned int index = 0;
@@ -1309,7 +1310,7 @@ int core_ctl_op_boost(bool boost, int level)
         return ret;
 }
 EXPORT_SYMBOL(core_ctl_op_boost);
-
+#endif
 /* ============================ init code ============================== */
 
 static struct cluster_data *find_cluster_by_first_cpu(unsigned int first_cpu)

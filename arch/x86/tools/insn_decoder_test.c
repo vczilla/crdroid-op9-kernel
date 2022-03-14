@@ -9,7 +9,7 @@
 #include <string.h>
 #include <assert.h>
 #include <unistd.h>
-#include <stdarg.h>
+#include <linux/stdarg.h>
 
 #define unlikely(cond) (cond)
 

@@ -1,3 +1,4 @@
+#include <linux/oem/boot_mode.h>
 static int qpnp_config_reset(struct qpnp_pon *pon, struct qpnp_pon_config *cfg);
 static int qpnp_config_pull(struct qpnp_pon *pon, struct qpnp_pon_config *cfg);
 static int

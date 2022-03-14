@@ -16,7 +16,7 @@
 #include <linux/utsname.h>
 #include <linux/proc_fs.h>
 #include <linux/mutex.h>
-#include <stdarg.h>
+#include <linux/stdarg.h>
 
 int snd_info_check_reserved_words(const char *str)
 {

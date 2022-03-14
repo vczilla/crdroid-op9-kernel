@@ -17,7 +17,7 @@
 #include <dirent.h>
 #include <libgen.h>
 #include <pthread.h>
-#include <stdarg.h>
+#include <linux/stdarg.h>
 #include <time.h>
 #include <errno.h>
 #include <sys/dir.h>

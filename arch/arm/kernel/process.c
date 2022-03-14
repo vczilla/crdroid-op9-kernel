@@ -5,7 +5,7 @@
  *  Copyright (C) 1996-2000 Russell King - Converted to ARM.
  *  Original Copyright (C) 1995  Linus Torvalds
  */
-#include <stdarg.h>
+#include <linux/stdarg.h>
 
 #include <linux/export.h>
 #include <linux/sched.h>

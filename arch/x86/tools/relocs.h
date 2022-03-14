@@ -3,7 +3,7 @@
 #define RELOCS_H
 
 #include <stdio.h>
-#include <stdarg.h>
+#include <linux/stdarg.h>
 #include <stdlib.h>
 #include <stdint.h>
 #include <inttypes.h>

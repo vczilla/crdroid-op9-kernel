@@ -35,7 +35,7 @@
 #include <elf.h>
 #include <errno.h>
 #include <fcntl.h>
-#include <stdarg.h>
+#include <linux/stdarg.h>
 #include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>

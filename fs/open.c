@@ -32,9 +32,6 @@
 #include <linux/ima.h>
 #include <linux/dnotify.h>
 #include <linux/compat.h>
-#ifdef CONFIG_FSC
-#include <linux/oem/fsc.h>
-#endif
 
 #include "internal.h"
 
@@ -262,6 +259,7 @@ int vfs_fallocate(struct file *file, int mode, loff_t offset, loff_t len)
 		return -EINVAL;
 
 	/* Unshare range should only be used with allocate mode. */
+
 	if ((mode & FALLOC_FL_UNSHARE_RANGE) &&
 	    (mode & ~(FALLOC_FL_UNSHARE_RANGE | FALLOC_FL_KEEP_SIZE)))
 		return -EINVAL;
@@ -746,9 +744,8 @@ static int do_dentry_open(struct file *f,
 	path_get(&f->f_path);
 	f->f_inode = inode;
 	f->f_mapping = inode->i_mapping;
-
-	/* Ensure that we skip any errors that predate opening of the file */
 	f->f_wb_err = filemap_sample_wb_err(f->f_mapping);
+	f->f_sb_err = file_sample_sb_err(f);
 
 	if (unlikely(f->f_flags & O_PATH)) {
 		f->f_mode = FMODE_PATH | FMODE_OPENED;
@@ -1099,33 +1096,8 @@ long do_sys_open(int dfd, const char __user *filename, int flags, umode_t mode)
 			put_unused_fd(fd);
 			fd = PTR_ERR(f);
 		} else {
-#ifdef CONFIG_FSC
-			path_get(&f->f_path);
-#endif
 			fsnotify_open(f);
 			fd_install(fd, f);
-#ifdef CONFIG_FSC
-			if (fsc_enable && fsc_allow_list_cur && tmp->name) {
-				size_t len = strlen(tmp->name);
-
-				if ((flags & O_CREAT || flags & O_TMPFILE) &&
-					len < FSC_PATH_MAX) {
-					const char *path = NULL;
-					char buf[FSC_PATH_MAX] = {0};
-					unsigned int hidx;
-					path = file_path(f, buf, FSC_PATH_MAX);
-					if (!IS_ERR(path)) {
-						len = strlen(path);
-						hidx = fsc_get_hidx(path, len);
-						fsc_spin_lock(hidx);
-						fsc_delete_absence_path_locked(
-							path, len, hidx);
-						fsc_spin_unlock(hidx);
-					}
-				}
-			}
-			path_put(&f->f_path);
-#endif
 		}
 	}
 	putname(tmp);
@@ -1225,6 +1197,23 @@ SYSCALL_DEFINE1(close, unsigned int, fd)
 		retval = -EINTR;
 
 	return retval;
+}
+
+/**
+ * close_range() - Close all file descriptors in a given range.
+ *
+ * @fd:     starting file descriptor to close
+ * @max_fd: last file descriptor to close
+ * @flags:  reserved for future extensions
+ *
+ * This closes a range of file descriptors. All file descriptors
+ * from @fd up to and including @max_fd are closed.
+ * Currently, errors to close a given file descriptor are ignored.
+ */
+SYSCALL_DEFINE3(close_range, unsigned int, fd, unsigned int, max_fd,
+		unsigned int, flags)
+{
+	return __close_range(fd, max_fd, flags);
 }
 
 /*

@@ -51,7 +51,7 @@
 #include <inttypes.h>
 #include <stdint.h>
 #include <unistd.h>
-#include <stdarg.h>
+#include <linux/stdarg.h>
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>

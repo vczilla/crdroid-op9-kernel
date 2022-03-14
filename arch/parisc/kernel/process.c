@@ -18,7 +18,7 @@
  *    Copyright (C) 2002 Randolph Chung <tausq with parisc-linux.org>
  */
 
-#include <stdarg.h>
+#include <linux/stdarg.h>
 
 #include <linux/elf.h>
 #include <linux/errno.h>

@@ -15,7 +15,7 @@
  * -nostdinc is specified (i.e., ACPI_USE_STANDARD_HEADERS undefined.
  */
 #ifndef va_arg
-#include <stdarg.h>
+#include <linux/stdarg.h>
 #endif
 
 /* Configuration specific to Intel 64-bit C compiler */

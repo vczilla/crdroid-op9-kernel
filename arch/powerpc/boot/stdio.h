@@ -2,7 +2,7 @@
 #ifndef _PPC_BOOT_STDIO_H_
 #define _PPC_BOOT_STDIO_H_
 
-#include <stdarg.h>
+#include <linux/stdarg.h>
 
 #define	ENOMEM		12	/* Out of Memory */
 #define	EINVAL		22	/* Invalid argument */

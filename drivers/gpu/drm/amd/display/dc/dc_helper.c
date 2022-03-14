@@ -30,7 +30,7 @@
 #include <linux/delay.h>
 
 #include "dm_services.h"
-#include <stdarg.h>
+#include <linux/stdarg.h>
 
 struct dc_reg_value_masks {
 	uint32_t value;

@@ -2,7 +2,7 @@
 /*
  * Copyright (C) Paul Mackerras 1997.
  */
-#include <stdarg.h>
+#include <linux/stdarg.h>
 #include <stddef.h>
 #include "string.h"
 #include "stdio.h"
