@@ -58,6 +58,7 @@ endif
 
 endif
 
+$(info $(CONFIG_SPECTRA_CAMERA))
 ifneq (,$(filter $(CONFIG_SPECTRA_CAMERA), y m))
 # Use USERINCLUDE when you must reference the UAPI directories only.
 USERINCLUDE     += \

@@ -42,14 +42,7 @@ static char backlight_manufacture[32] = {0};
 static char lcd_version[32] = {0};
 static char backlight_version[32] = {0};
 
-char *enum_ftm_mode[] = {"normal",
-						 "fastboot",
-						 "recovery",
-						 "aging",
-						 "ftm_at",
-						 "ftm_rf",
-						 "charger"
-};
+extern char *enum_ftm_mode[];
 
 /**
  * exported functions
@@ -360,6 +353,8 @@ static int __init get_backlight_version(char *str)
 
 static int __init op_cmdline_init(void)
 {
+	strcpy(op_cmdline, saved_command_line);
+
 	pr_info("%s:%s\n", __func__, op_cmdline);
 
 	boot_mode_init(CMDLINE_BOOT_MODE);

@@ -560,7 +560,7 @@ static int memplus_reclaim_pte(pmd_t *pmd, unsigned long addr,
 	struct page_ext *page_ext;
 #endif
 
-	split_huge_pmd(vma, addr, pmd);
+	split_huge_pmd(vma, pmd, addr);
 	if (pmd_trans_unstable(pmd) || !rp->nr_to_reclaim)
 		return 0;
 cont:
