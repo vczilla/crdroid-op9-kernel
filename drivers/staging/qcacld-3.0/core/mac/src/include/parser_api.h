@@ -1,6 +1,5 @@
 /*
  * Copyright (c) 2012-2020 The Linux Foundation. All rights reserved.
- * Copyright (c) 2021 Qualcomm Innovation Center, Inc. All rights reserved.
  *
  * Permission to use, copy, modify, and/or distribute this software for
  * any purpose with or without fee is hereby granted, provided that the
@@ -30,7 +29,7 @@
 #ifndef __PARSE_H__
 #define __PARSE_H__
 
-#include <linux/stdarg.h>
+#include <stdarg.h>
 #include "sir_mac_prop_exts.h"
 #include "dot11f.h"
 #include "lim_ft_defs.h"
@@ -739,7 +738,7 @@ populate_dot11f_country(struct mac_context *mac,
 /* Populated a populate_dot11f_ds_params */
 QDF_STATUS
 populate_dot11f_ds_params(struct mac_context *mac,
-			tDot11fIEDSParams *pDot11f, qdf_freq_t freq);
+			tDot11fIEDSParams *pDot11f, uint8_t channel);
 
 /* / Populated a tDot11fIEEDCAParamSet */
 void

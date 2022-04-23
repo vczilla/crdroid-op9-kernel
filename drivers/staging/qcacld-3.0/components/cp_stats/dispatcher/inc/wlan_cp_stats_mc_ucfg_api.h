@@ -55,9 +55,9 @@
  * @params: array pointer to store peer twt session parameters, should contain
  * mac_addr and dialog id of a peer for which twt session stats to be retrieved
  *
- * Return: total number of valid twt session
+ * Return: QDF_STATUS_SUCCESS upon success, else qdf error values
  */
-int
+QDF_STATUS
 ucfg_twt_get_peer_session_params(struct wlan_objmgr_psoc *psoc_obj,
 				 struct wmi_host_twt_session_stats_info *param);
 #endif /* WLAN_SUPPORT_TWT */

@@ -1,6 +1,5 @@
 /*
  * Copyright (c) 2013-2021 The Linux Foundation. All rights reserved.
- * Copyright (c) 2022 Qualcomm Innovation Center, Inc. All rights reserved.
  *
  * Permission to use, copy, modify, and/or distribute this software for
  * any purpose with or without fee is hereby granted, provided that the
@@ -167,7 +166,7 @@ struct hif_latency_detect {
 #if defined(HIF_CONFIG_SLUB_DEBUG_ON) || defined(HIF_CE_DEBUG_DATA_BUF)
 struct ce_desc_hist {
 	qdf_atomic_t history_index[CE_COUNT_MAX];
-	bool enable[CE_COUNT_MAX];
+	uint32_t enable[CE_COUNT_MAX];
 	bool data_enable[CE_COUNT_MAX];
 	qdf_mutex_t ce_dbg_datamem_lock[CE_COUNT_MAX];
 	uint32_t hist_index;
@@ -309,18 +308,6 @@ void *hif_get_hal_handle(struct hif_opaque_softc *hif_hdl)
 }
 
 /**
- * hif_get_num_active_tasklets() - get the number of active
- *		tasklets pending to be completed.
- * @scn: HIF context
- *
- * Returns: the number of tasklets which are active
- */
-static inline int hif_get_num_active_tasklets(struct hif_softc *scn)
-{
-	return qdf_atomic_read(&scn->active_tasklet_cnt);
-}
-
-/**
  * Max waiting time during Runtime PM suspend to finish all
  * the tasks. This is in the multiple of 10ms.
  */
@@ -383,16 +370,8 @@ void hif_unconfig_ce(struct hif_softc *scn);
 void hif_ce_prepare_config(struct hif_softc *scn);
 QDF_STATUS hif_ce_open(struct hif_softc *scn);
 void hif_ce_close(struct hif_softc *scn);
-#if defined(CONFIG_ATH_PROCFS_DIAG_SUPPORT)
 int athdiag_procfs_init(void *scn);
 void athdiag_procfs_remove(void);
-#else
-static inline int athdiag_procfs_init(void *scn)
-{
-	return 0;
-}
-static inline void athdiag_procfs_remove(void) {}
-#endif
 /* routine to modify the initial buffer count to be allocated on an os
  * platform basis. Platform owner will need to modify this as needed
  */
